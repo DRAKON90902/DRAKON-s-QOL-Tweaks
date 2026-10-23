@@ -1,0 +1,10 @@
+{
+	"drakonsqoltweaks.title": "Drakon's QOL Tweaks Configuration",
+	"drakonsqoltweaks.options.button": "Drakon's QOL Tweaks...",
+	"drakonsqoltweaks.tab.refill": "Hotbar Refill",
+	"drakonsqoltweaks.tab.timers": "Timers",
+	"drakonsqoltweaks.tab.messages": "Mod Messages",
+	"drakonsqoltweaks.tab.extra": "More / Status",
+	"drakonsqoltweaks.button.reset_defaults": "Reset Defaults",
+	"drakonsqoltweaks.button.clear_timers": "Clear Active Timers"
+}

@@ -1,0 +1,21 @@
+{
+	"required": true,
+	"package": "com.drakonsqoltweaks.client.mixin",
+	"compatibilityLevel": "JAVA_25",
+	"client": [
+		"AbstractFurnaceBlockEntityAccessor",
+		"AbstractFurnaceMenuAccessor",
+		"AbstractFurnaceScreenMixin",
+		"HudMixin",
+		"LocalPlayerMixin",
+		"MultiPlayerGameModeMixin",
+		"OptionsScreenMixin",
+		"TntRendererMixin"
+	],
+	"injectors": {
+		"defaultRequire": 1
+	},
+	"overwrites": {
+		"requireAnnotations": true
+	}
+}

@@ -1,0 +1,32 @@
+{
+	"schemaVersion": 1,
+	"id": "drakonsqoltweaks",
+	"version": "${version}",
+	"name": "Drakon's QOL Tweaks",
+	"description": "Client-side Quality of Life tweaks including automatic hotbar stack refilling, lit TNT countdown timers, animal breeding cooldown timers, furnace smelting timers, and an in-game Options configuration menu.",
+	"authors": [
+		"Matthew White (Drakon)"
+	],
+	"contact": {
+		"homepage": "https://fabricmc.net/"
+	},
+	"license": "MIT",
+	"environment": "client",
+	"entrypoints": {
+		"client": [
+			"com.drakonsqoltweaks.client.DrakonsQolTweaksClient"
+		]
+	},
+	"mixins": [
+		{
+			"config": "drakonsqoltweaks.client.mixins.json",
+			"environment": "client"
+		}
+	],
+	"depends": {
+		"fabricloader": ">=0.19.2",
+		"minecraft": "~26.2",
+		"java": ">=25",
+		"fabric-api": "*"
+	}
+}
