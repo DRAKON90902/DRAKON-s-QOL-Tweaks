@@ -96,10 +96,23 @@ public final class DrakonsQolCommands {
 					return Command.SINGLE_SUCCESS;
 				})
 			)
-			// /dqol s {structure name} {minimum distance} [maximum distance] [return determinant]
+			// /dqol s {structure name} [minimum distance] [maximum distance] [return determinant]
 			.then(ClientCommands.literal("s")
 				.then(ClientCommands.argument("structure", IdentifierArgument.id())
 					.suggests(STRUCTURE_SUGGESTIONS)
+					// 0) /dqol s <structure> (defaults minDistance to 0)
+					.executes(ctx -> {
+						Identifier structureId = ctx.getArgument("structure", Identifier.class);
+						DrakonsQolConfig config = DrakonsQolConfig.getInstance();
+						int maxDistance = Math.max(500, config.getDefaultStructureMaxDistance());
+						StructureLocator.locateStructureAsync(
+							structureId,
+							0,
+							maxDistance,
+							config.getDefaultStructureReturnMode()
+						);
+						return Command.SINGLE_SUCCESS;
+					})
 					.then(ClientCommands.argument("minDistance", IntegerArgumentType.integer(0, 100000))
 						.suggests(MIN_DISTANCE_SUGGESTIONS)
 						// 1) /dqol s <structure> <minDistance>
@@ -117,7 +130,7 @@ public final class DrakonsQolCommands {
 							return Command.SINGLE_SUCCESS;
 						})
 						// 2) /dqol s <structure> <minDistance> <maxDistance> [returnDeterminant]
-						.then(ClientCommands.argument("maxDistance", IntegerArgumentType.integer(1, 100000))
+						.then(ClientCommands.argument("maxDistance", IntegerArgumentType.integer(0, 100000))
 							.suggests(MAX_DISTANCE_OR_RETURN_SUGGESTIONS)
 							.executes(ctx -> {
 								Identifier structureId = ctx.getArgument("structure", Identifier.class);
@@ -154,6 +167,17 @@ public final class DrakonsQolCommands {
 								return executeWithDeterminant(structureId, minDistance, maxDistance, determinantStr);
 							})
 						)
+					)
+					// 4) /dqol s <structure> <returnDeterminant> (when both distances are omitted)
+					.then(ClientCommands.argument("returnDeterminant", StringArgumentType.word())
+						.suggests(RETURN_DETERMINANT_SUGGESTIONS)
+						.executes(ctx -> {
+							Identifier structureId = ctx.getArgument("structure", Identifier.class);
+							DrakonsQolConfig config = DrakonsQolConfig.getInstance();
+							int maxDistance = Math.max(500, config.getDefaultStructureMaxDistance());
+							String determinantStr = StringArgumentType.getString(ctx, "returnDeterminant");
+							return executeWithDeterminant(structureId, 0, maxDistance, determinantStr);
+						})
 					)
 				)
 			)
